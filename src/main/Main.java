@@ -1,8 +1,8 @@
 package main;
 
-import systemtransakcyjny.Czytnik;
-import systemtransakcyjny.Portfel;
-import systemtransakcyjny.SystemTransakcyjny;
+import tradingsystem.DataReader;
+import tradingsystem.Wallet;
+import tradingsystem.tradingSystem;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.zip.DataFormatException;
@@ -10,19 +10,19 @@ import java.util.zip.DataFormatException;
 public class Main {
     public static void main(String[] args) {
         try {
-            Czytnik czytnikDanych = new Czytnik();
-            SystemTransakcyjny systemTransakcyjny = czytnikDanych.wczytaj(args[0]);
+            DataReader dataReader = new DataReader();
+            tradingSystem tradingSystem = dataReader.read(args[0]);
 
-            systemTransakcyjny.symuluj(Integer.parseInt(args[1]));
+            tradingSystem.symuluj(Integer.parseInt(args[1]));
 
-            List<Portfel> portfele = systemTransakcyjny.portfele();
-            for (Portfel portfel : portfele) {
-                System.out.println(portfel);
+            List<Wallet> wallets = tradingSystem.portfele();
+            for (Wallet wallet : wallets) {
+                System.out.println(wallet);
             }
         } catch (NumberFormatException e) {
-            System.out.println("Błąd - niepoprawna liczba");
+            System.out.println("Error - invalid number");
         } catch (FileNotFoundException | DataFormatException e) {
-            System.out.println("Błąd - niepoprawne dane. " + e.getMessage());
+            System.out.println("Error - invalid data. " + e.getMessage());
         }
     }
 }

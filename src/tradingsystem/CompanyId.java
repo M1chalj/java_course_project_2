@@ -1,11 +1,11 @@
-package systemtransakcyjny;
+package tradingsystem;
 
 import java.security.InvalidParameterException;
 
-public class IdSpółki {
+public class CompanyId {
     private final String id;
 
-    public IdSpółki(String s) {
+    public CompanyId(String s) {
         if (s.length() > 5 || s.isEmpty()) {
             throw new InvalidParameterException("Niepoprawne id spółki");
         }
@@ -27,11 +27,11 @@ public class IdSpółki {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof IdSpółki)) {
+        if (!(obj instanceof CompanyId)) {
             return false;
         }
-        IdSpółki idSpółki = (IdSpółki) obj;
-        return id.equals(idSpółki.id);
+        CompanyId companyId = (CompanyId) obj;
+        return id.equals(companyId.id);
     }
 
     @Override   

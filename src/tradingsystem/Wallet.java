@@ -1,42 +1,42 @@
-package systemtransakcyjny;
+package tradingsystem;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Portfel {
-    private final Map<IdSpółki, Integer> akcje;
+public class Wallet {
+    private final Map<CompanyId, Integer> akcje;
     private int gotówka;
 
-    public Portfel(int gotówka) {
+    public Wallet(int gotówka) {
         this.gotówka = gotówka;
         akcje = new HashMap<>();
     }
 
-    public Portfel(Portfel portfel) { //konstruktor kopiujący
-        this.akcje = new HashMap<>(portfel.akcje);
-        this.gotówka = portfel.gotówka;
+    public Wallet(Wallet wallet) { //konstruktor kopiujący
+        this.akcje = new HashMap<>(wallet.akcje);
+        this.gotówka = wallet.gotówka;
     }
 
-    public void dodajGotówkę(int gotówka) {
+    public void addMoney(int gotówka) {
         this.gotówka += gotówka;
     }
 
-    public void odejmijGotówkę(int gotówka) {
+    public void takeMoney(int gotówka) {
         if (this.gotówka < gotówka) {
             throw new IllegalArgumentException("Usunięcie gotówki, której nie ma w portfelu");
         }
         this.gotówka -= gotówka;
     }
 
-    public void dodajAkcje(IdSpółki id, int liczba) {
+    public void addShares(CompanyId id, int liczba) {
         if (akcje.containsKey(id)) {
             liczba += akcje.get(id);
         }
         akcje.put(id, liczba);
     }
 
-    public void odejmijAkcje(IdSpółki id, int liczba) {
+    public void takeShares(CompanyId id, int liczba) {
         if (!akcje.containsKey(id) || akcje.get(id) < liczba) {
             throw new IllegalArgumentException("Usunięcie akcji, których nie ma w portfelu");
         }
@@ -48,23 +48,23 @@ public class Portfel {
         }
     }
 
-    public Set<IdSpółki> idSpółek() {
+    public Set<CompanyId> CompaniesIDs() {
         return akcje.keySet();
     }
 
-    public int ileAkcji(IdSpółki idSpółki) {
-        return akcje.getOrDefault(idSpółki, 0);
+    public int shares(CompanyId companyId) {
+        return akcje.getOrDefault(companyId, 0);
     }
 
-    public int ileGotówki() {
+    public int money() {
         return gotówka;
     }
 
-    public boolean maGotówkę(int ile) {
+    public boolean hasMoney(int ile) {
         return gotówka >= ile;
     }
 
-    public boolean maAkcje(IdSpółki id, int ile) {
+    public boolean hadShares(CompanyId id, int ile) {
         return akcje.containsKey(id) && akcje.get(id) >= ile;
     }
 
@@ -72,7 +72,7 @@ public class Portfel {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(gotówka);
-        for (Map.Entry<IdSpółki, Integer> elem : akcje.entrySet()) {
+        for (Map.Entry<CompanyId, Integer> elem : akcje.entrySet()) {
             stringBuilder.append(" ");
             stringBuilder.append(elem.getKey());
             stringBuilder.append(":");

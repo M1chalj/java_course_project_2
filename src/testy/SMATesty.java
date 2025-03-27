@@ -1,7 +1,7 @@
 package testy;
 
 import org.junit.jupiter.api.Test;
-import systemtransakcyjny.SMA;
+import tradingsystem.SMA;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,23 +11,23 @@ public class SMATesty {
     public void poprawneUżycie() {
         SMA średnia = new SMA(5);
         for (int i = 0; i < 10; i++) {
-            średnia.następnaWartość(i);
+            średnia.nextValue(i);
         }
-        assertEquals(średnia.średnia(), 7);
-        średnia.następnaWartość(10);
-        assertEquals(średnia.średnia(), 8);
+        assertEquals(średnia.average(), 7);
+        średnia.nextValue(10);
+        assertEquals(średnia.average(), 8);
     }
 
     @Test
     public void niepoprawneUżycie() {
         SMA średnia = new SMA(100);
-        assertThrows(UnsupportedOperationException.class, średnia::średnia);
+        assertThrows(UnsupportedOperationException.class, średnia::average);
         for (int i = 0; i < 99; i++) {
-            średnia.następnaWartość(5);
+            średnia.nextValue(5);
         }
-        assertThrows(UnsupportedOperationException.class, średnia::średnia);
-        średnia.następnaWartość(5);
-        assertEquals(średnia.średnia(), 5);
+        assertThrows(UnsupportedOperationException.class, średnia::average);
+        średnia.nextValue(5);
+        assertEquals(średnia.average(), 5);
     }
 
     @Test

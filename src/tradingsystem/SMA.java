@@ -1,4 +1,4 @@
-package systemtransakcyjny;
+package tradingsystem;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,7 +17,7 @@ public class SMA {
         kolejkaDanych = new LinkedList<>();
     }
 
-    public void następnaWartość(int wartość) {
+    public void nextValue(int wartość) {
         if (kolejkaDanych.size() >= liczbaDanych) {
             suma -= kolejkaDanych.remove();
         }
@@ -25,7 +25,7 @@ public class SMA {
         kolejkaDanych.add(wartość);
     }
 
-    public double średnia() {
+    public double average() {
         if (kolejkaDanych.size() < liczbaDanych) {
             throw new UnsupportedOperationException("Średnia jeszcze nie istnieje");
         }
