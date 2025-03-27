@@ -5,46 +5,46 @@ import java.util.PriorityQueue;
 public class Company {
 
     private final CompanyId id;
-    private final PriorityQueue<Offer> zleceniaKupna;
-    private final PriorityQueue<Offer> zleceniaSprzedaży;
-    private int ostatniaCena;
+    private final PriorityQueue<Offer> buyOffers;
+    private final PriorityQueue<Offer> sellOffers;
+    private int lastPrice;
 
-    public Company(CompanyId id, int ostatniaCena) {
+    public Company(CompanyId id, int lastPrice) {
         this.id = id;
-        this.ostatniaCena = ostatniaCena;
-        zleceniaSprzedaży = new PriorityQueue<>();
-        zleceniaKupna = new PriorityQueue<>();
+        this.lastPrice = lastPrice;
+        sellOffers = new PriorityQueue<>();
+        buyOffers = new PriorityQueue<>();
     }
 
-    public void dodajZlecenie(Offer offer) {
+    public void addOffer(Offer offer) {
         if (offer.type() == OfferType.BUY) {
-            zleceniaKupna.add(offer);
+            buyOffers.add(offer);
         } else {
-            zleceniaSprzedaży.add(offer);
+            sellOffers.add(offer);
         }
     }
 
     public void executeOffers() {
-        while (!zleceniaKupna.isEmpty() && !zleceniaSprzedaży.isEmpty()
-                && zleceniaKupna.peek().matchWith(zleceniaSprzedaży.peek())) {
-            if (zleceniaSprzedaży.peek().compareTo(zleceniaKupna.peek()) < 0) {
-                zleceniaSprzedaży.remove().tryExecute(zleceniaSprzedaży, zleceniaKupna);
+        while (!buyOffers.isEmpty() && !sellOffers.isEmpty()
+                && buyOffers.peek().matchWith(sellOffers.peek())) {
+            if (sellOffers.peek().compareTo(buyOffers.peek()) < 0) {
+                sellOffers.remove().tryExecute(sellOffers, buyOffers);
             } else {
-                zleceniaKupna.remove().tryExecute(zleceniaSprzedaży, zleceniaKupna);
+                buyOffers.remove().tryExecute(sellOffers, buyOffers);
             }
         }
     }
 
-    public void deleteExpiredOffers(int tura) {
-        zleceniaKupna.removeIf(zlecenie -> zlecenie.expirationRound(tura));
+    public void deleteExpiredOffers(int round) {
+        buyOffers.removeIf(offer -> offer.expirationRound(round));
     }
 
     public int lastPrice() {
-        return ostatniaCena;
+        return lastPrice;
     }
 
-    public void lastPrice(int cena) {
-        ostatniaCena = cena;
+    public void lastPrice(int price) {
+        lastPrice = price;
     }
 
     public CompanyId id() {

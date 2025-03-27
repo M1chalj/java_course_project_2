@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public class InvestorRandom extends Investor {
 
-    public InvestorRandom(tradingSystem giełda, Wallet wallet) {
-        super(giełda, wallet);
+    public InvestorRandom(tradingSystem market, Wallet wallet) {
+        super(market, wallet);
     }
 
     @Override

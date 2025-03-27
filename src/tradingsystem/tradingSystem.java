@@ -54,7 +54,7 @@ public class tradingSystem {
             if (decision.isPresent()) {
                 Offer offer = decision.get();
                 if (valid(offer)) {
-                    companies.get(offer.companyID()).dodajZlecenie(offer);
+                    companies.get(offer.companyID()).addOffer(offer);
                 }
             }
         }

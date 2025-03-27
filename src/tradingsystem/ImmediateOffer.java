@@ -2,7 +2,7 @@ package tradingsystem;
 
 public class ImmediateOffer extends ExpirationOffer {
 
-    public ImmediateOffer(tradingSystem giełda, OfferType typ, CompanyId idAkcji, int liczbaAkcji, int cena, Investor investor, int aktualnaTura) {
-        super(giełda, typ, idAkcji, liczbaAkcji, cena, investor, aktualnaTura);
+    public ImmediateOffer(tradingSystem market, OfferType type, CompanyId companyId, int stocksNumber, int price, Investor investor, int round) {
+        super(market, type, companyId, stocksNumber, price, investor, round);
     }
 }

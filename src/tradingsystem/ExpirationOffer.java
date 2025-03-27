@@ -1,15 +1,15 @@
 package tradingsystem;
 
 public class ExpirationOffer extends DivisibleOffer {
-    private final int turaWażności;
+    private final int expirationRound;
 
-    public ExpirationOffer(tradingSystem giełda, OfferType typ, CompanyId idAkcji, int liczbaAkcji, int cena, Investor investor, int turaWażności) {
-        super(giełda, typ, idAkcji, liczbaAkcji, cena, investor);
-        this.turaWażności = turaWażności;
+    public ExpirationOffer(tradingSystem market, OfferType type, CompanyId companyId, int StocksNumber, int price, Investor investor, int expirationRound) {
+        super(market, type, companyId, StocksNumber, price, investor);
+        this.expirationRound = expirationRound;
     }
 
     @Override
     public boolean expirationRound(int round) {
-        return round == turaWażności;
+        return round == expirationRound;
     }
 }

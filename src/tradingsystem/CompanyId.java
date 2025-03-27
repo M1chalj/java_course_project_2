@@ -7,11 +7,11 @@ public class CompanyId {
 
     public CompanyId(String s) {
         if (s.length() > 5 || s.isEmpty()) {
-            throw new InvalidParameterException("Niepoprawne id spółki");
+            throw new InvalidParameterException("Invalid company ID");
         }
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
-                throw new InvalidParameterException("Niepoprawne id spółki");
+                throw new InvalidParameterException("Invalid company ID");
             }
         }
         id = s;
