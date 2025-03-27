@@ -17,7 +17,7 @@ public class InvestorSMA extends Investor {
         longerAverage = new HashMap<>();
         shorterAverage = new HashMap<>();
 
-        for (CompanyId id : market.CompaniesIDs()) {
+        for (CompanyId id : market.companiesIDs()) {
             longerAverage.put(id, new SMA(LONGER_AVERAGE_LEN));
             shorterAverage.put(id, new SMA(SHORTER_AVERAGE_LEN));
         }
@@ -29,7 +29,7 @@ public class InvestorSMA extends Investor {
         List<CompanyId> buySignals = new ArrayList<>();
         List<CompanyId> sellSignals = new ArrayList<>();
 
-        for (CompanyId id : market().CompaniesIDs()) {
+        for (CompanyId id : market().companiesIDs()) {
 
             double longBefore = 0;
             double shortBefore = 0;

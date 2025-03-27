@@ -125,8 +125,8 @@ public class tradingSystemTesty {
             tradingSystem.addInvestor(investor);
         }
 
-        tradingSystem.symuluj(liczbaTur);
-        List<Wallet> portfele = tradingSystem.portfele();
+        tradingSystem.simulate(liczbaTur);
+        List<Wallet> portfele = tradingSystem.wallets();
 
         for (Company company : spółki) {
             int sumaAkcji = 0;

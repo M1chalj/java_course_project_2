@@ -13,79 +13,79 @@ import java.util.Collections;
 import java.util.Optional;
 
 public class tradingSystem {
-    private static final int MAKSYMALNA_RÓŻNICA_CENY = 10;
+    private static final int MAX_PRICE_DIFFERENCE = 10;
 
-    private final Map<CompanyId, Company> spółki;
-    private final Set<Investor> inwestorzy;
-    private int numerTury;
+    private final Map<CompanyId, Company> companies;
+    private final Set<Investor> investors;
+    private int roundNumber;
 
     public tradingSystem() {
-        numerTury = 0;
-        spółki = new HashMap<>();
-        inwestorzy = new HashSet<>();
+        roundNumber = 0;
+        companies = new HashMap<>();
+        investors = new HashSet<>();
     }
 
     public int roundNumber() {
-        return numerTury;
+        return roundNumber;
     }
 
     public void addInvestor(Investor investor) {
-        inwestorzy.add(investor);
+        investors.add(investor);
     }
 
     public void addCompany(Company company) {
-        spółki.put(company.id(), company);
+        companies.put(company.id(), company);
     }
 
-    public Set<CompanyId> CompaniesIDs() {
-        return spółki.keySet();
+    public Set<CompanyId> companiesIDs() {
+        return companies.keySet();
     }
 
     public Company company(CompanyId id) {
-        return spółki.get(id);
+        return companies.get(id);
     }
 
-    public void kolejnaTura() {
-        List<Investor> kolejność = new LinkedList<>(inwestorzy);
-        Collections.shuffle(kolejność, RandomNumberGenerator.generator());
+    public void nextRound() {
+        List<Investor> order = new LinkedList<>(investors);
+        Collections.shuffle(order, RandomNumberGenerator.generator());
 
-        for (Investor investor : kolejność) {
-            Optional<Offer> decyzja = investor.makeDecision();
-            if (decyzja.isPresent()) {
-                Offer offer = decyzja.get();
-                if (poprawne(offer)) {
-                    spółki.get(offer.companyID()).dodajZlecenie(offer);
+        for (Investor investor : order) {
+            Optional<Offer> decision = investor.makeDecision();
+            if (decision.isPresent()) {
+                Offer offer = decision.get();
+                if (valid(offer)) {
+                    companies.get(offer.companyID()).dodajZlecenie(offer);
                 }
             }
         }
 
-        for (Company company : spółki.values()) {
-            company.wykonajZlecenia();
-            company.wyrzućNieważneZlecenia(numerTury);
+        for (Company company : companies.values()) {
+            company.executeOffers();
+            company.deleteExpiredOffers(roundNumber);
         }
 
-        numerTury++;
+        roundNumber++;
     }
 
-    public void symuluj(int liczbaTur) {
-        while (liczbaTur > 0) {
-            kolejnaTura();
-            liczbaTur--;
+    public void simulate(int numberOfRounds) {
+        while (numberOfRounds > 0) {
+            nextRound();
+            numberOfRounds--;
         }
     }
 
-    public List<Wallet> portfele() {
-        List<Wallet> lista = new ArrayList<>();
-        for (Investor investor : inwestorzy) {
-            lista.add(investor.wallet());
+    public List<Wallet> wallets() {
+        List<Wallet> list = new ArrayList<>();
+        for (Investor investor : investors) {
+            list.add(investor.wallet());
         }
-        return lista;
+        return list;
     }
 
-    private boolean poprawne(Offer offer) {
-        int ostatniaCena = spółki.get(offer.companyID()).lastPrice();
+    private boolean valid(Offer offer) {
+        int lastPrice = companies.get(offer.companyID()).lastPrice();
         return offer.executable() &&
-                offer.priceInInterval(ostatniaCena - MAKSYMALNA_RÓŻNICA_CENY,
-                        ostatniaCena + MAKSYMALNA_RÓŻNICA_CENY);
+                offer.priceInInterval(lastPrice - MAX_PRICE_DIFFERENCE,
+                        lastPrice + MAX_PRICE_DIFFERENCE);
     }
 }

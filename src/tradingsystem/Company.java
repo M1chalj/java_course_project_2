@@ -24,7 +24,7 @@ public class Company {
         }
     }
 
-    public void wykonajZlecenia() {
+    public void executeOffers() {
         while (!zleceniaKupna.isEmpty() && !zleceniaSprzedaży.isEmpty()
                 && zleceniaKupna.peek().matchWith(zleceniaSprzedaży.peek())) {
             if (zleceniaSprzedaży.peek().compareTo(zleceniaKupna.peek()) < 0) {
@@ -35,7 +35,7 @@ public class Company {
         }
     }
 
-    public void wyrzućNieważneZlecenia(int tura) {
+    public void deleteExpiredOffers(int tura) {
         zleceniaKupna.removeIf(zlecenie -> zlecenie.expirationRound(tura));
     }
 

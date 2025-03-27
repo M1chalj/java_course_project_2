@@ -1,8 +1,8 @@
 package tradingsystem;
 
 public class OpenEndedOffer extends DivisibleOffer {
-    public OpenEndedOffer(tradingSystem giełda, OfferType typ, CompanyId idAkcji, int liczbaAkcji, int cena, Investor investor) {
-        super(giełda, typ, idAkcji, liczbaAkcji, cena, investor);
+    public OpenEndedOffer(tradingSystem market, OfferType type, CompanyId companyId, int numberOfShares, int price, Investor investor) {
+        super(market, type, companyId, numberOfShares, price, investor);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class InvestorRandom extends Investor {
         List<CompanyId> possibleCompanies;
 
         if (offerType == OfferType.BUY) {
-            possibleCompanies = new ArrayList<>(market().CompaniesIDs());
+            possibleCompanies = new ArrayList<>(market().companiesIDs());
         } else {
             possibleCompanies = new ArrayList<>(wallet().CompaniesIDs());
         }

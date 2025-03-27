@@ -4,31 +4,31 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class SMA {
-    private final Queue<Integer> kolejkaDanych;
-    private final int liczbaDanych;
-    private int suma;
+    private final Queue<Integer> dataQueue;
+    private final int numberOfData;
+    private int sum;
 
-    public SMA(int liczbaDanych) {
-        this.liczbaDanych = liczbaDanych;
-        if (liczbaDanych <= 0) {
-            throw new IllegalArgumentException("Liczba danych musi być dodatnia");
+    public SMA(int numberOfData) {
+        this.numberOfData = numberOfData;
+        if (numberOfData <= 0) {
+            throw new IllegalArgumentException("Number of data has to be positive");
         }
-        suma = 0;
-        kolejkaDanych = new LinkedList<>();
+        sum = 0;
+        dataQueue = new LinkedList<>();
     }
 
-    public void nextValue(int wartość) {
-        if (kolejkaDanych.size() >= liczbaDanych) {
-            suma -= kolejkaDanych.remove();
+    public void nextValue(int value) {
+        if (dataQueue.size() >= numberOfData) {
+            sum -= dataQueue.remove();
         }
-        suma += wartość;
-        kolejkaDanych.add(wartość);
+        sum += value;
+        dataQueue.add(value);
     }
 
     public double average() {
-        if (kolejkaDanych.size() < liczbaDanych) {
-            throw new UnsupportedOperationException("Średnia jeszcze nie istnieje");
+        if (dataQueue.size() < numberOfData) {
+            throw new UnsupportedOperationException("SMA does not exist yet");
         }
-        return (double) suma / liczbaDanych;
+        return (double) sum / numberOfData;
     }
 }

@@ -13,9 +13,9 @@ public class Main {
             DataReader dataReader = new DataReader();
             tradingSystem tradingSystem = dataReader.read(args[0]);
 
-            tradingSystem.symuluj(Integer.parseInt(args[1]));
+            tradingSystem.simulate(Integer.parseInt(args[1]));
 
-            List<Wallet> wallets = tradingSystem.portfele();
+            List<Wallet> wallets = tradingSystem.wallets();
             for (Wallet wallet : wallets) {
                 System.out.println(wallet);
             }
