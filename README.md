@@ -1,6 +1,6 @@
 # Stock Exchange System
 
-*This project was created for the Object-Oriented Programming Course at the University of Warsaw, Faculty of Mathematics, Informatics, and Mechanics*
+*This project was created for the Object-Oriented Programming Course at the University of Warsaw, Faculty of Mathematics, Informatics, and Mechanics.*
 
 *Polish description of the project is available in the `Treść.pdf` file.*
 
