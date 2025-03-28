@@ -12,14 +12,14 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Optional;
 
-public class tradingSystem {
+public class TradingSystem {
     private static final int MAX_PRICE_DIFFERENCE = 10;
 
     private final Map<CompanyId, Company> companies;
     private final Set<Investor> investors;
     private int roundNumber;
 
-    public tradingSystem() {
+    public TradingSystem() {
         roundNumber = 0;
         companies = new HashMap<>();
         investors = new HashSet<>();

@@ -12,7 +12,7 @@ public class InvestorSMA extends Investor {
     private final Map<CompanyId, SMA> longerAverage;
     private final Map<CompanyId, SMA> shorterAverage;
 
-    public InvestorSMA(tradingSystem market, Wallet wallet) {
+    public InvestorSMA(TradingSystem market, Wallet wallet) {
         super(market, wallet);
         longerAverage = new HashMap<>();
         shorterAverage = new HashMap<>();
@@ -97,11 +97,11 @@ public class InvestorSMA extends Investor {
                     price, this);
             case 2 -> new ImmediateOffer(market(), offerType, companyId, sharesNumber,
                     price, this, market().roundNumber());
-            case 3 -> new MakeOrCancelOffer(market(), offerType, companyId, sharesNumber,
+            case 3 -> new ExecuteOrCancelOffer(market(), offerType, companyId, sharesNumber,
                     price, this);
             case 4 -> {
                 int term = market().roundNumber() + RandomNumberGenerator.randInt(1, MAX_VALID_PER_OFFER);
-                yield new ExpirationOffer(market(), offerType, companyId, sharesNumber,
+                yield new ExpiringOffer(market(), offerType, companyId, sharesNumber,
                         price, this, term);
             }
             default -> null;

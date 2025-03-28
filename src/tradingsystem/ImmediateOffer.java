@@ -1,8 +1,8 @@
 package tradingsystem;
 
-public class ImmediateOffer extends ExpirationOffer {
+public class ImmediateOffer extends ExpiringOffer {
 
-    public ImmediateOffer(tradingSystem market, OfferType type, CompanyId companyId, int stocksNumber, int price, Investor investor, int round) {
+    public ImmediateOffer(TradingSystem market, OfferType type, CompanyId companyId, int stocksNumber, int price, Investor investor, int round) {
         super(market, type, companyId, stocksNumber, price, investor, round);
     }
 }

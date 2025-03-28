@@ -2,7 +2,7 @@ package main;
 
 import tradingsystem.DataReader;
 import tradingsystem.Wallet;
-import tradingsystem.tradingSystem;
+import tradingsystem.TradingSystem;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.zip.DataFormatException;
@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             DataReader dataReader = new DataReader();
-            tradingSystem tradingSystem = dataReader.read(args[0]);
+            TradingSystem tradingSystem = dataReader.read(args[0]);
 
             tradingSystem.simulate(Integer.parseInt(args[1]));
 

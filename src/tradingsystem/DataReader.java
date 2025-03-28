@@ -10,21 +10,21 @@ import java.util.zip.DataFormatException;
 
 public class DataReader {
 
-    private final tradingSystem tradingSystem;
+    private final TradingSystem tradingSystem;
     private final Set<CompanyId> companyIDs;
     private final Wallet wallet;
     private int randomInvestorsNumber;
     private int SMAInvestorsNumber;
 
     public DataReader() {
-        tradingSystem = new tradingSystem();
+        tradingSystem = new TradingSystem();
         SMAInvestorsNumber = 0;
         randomInvestorsNumber = 0;
         wallet = new Wallet(0);
         companyIDs = new HashSet<>();
     }
 
-    public tradingSystem read(String path) throws FileNotFoundException, DataFormatException {
+    public TradingSystem read(String path) throws FileNotFoundException, DataFormatException {
         try (Scanner scanner = new Scanner(new File(path))) {
             int cnt = 0;
             while (scanner.hasNextLine()) {

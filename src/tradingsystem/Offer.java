@@ -11,11 +11,11 @@ public abstract class Offer implements Comparable<Offer> {
     private final CompanyId companyId;
     private final int price;
     private final Investor investor;
-    private final tradingSystem market;
+    private final TradingSystem market;
     private int sharesNumber;
     private final OfferExecutor offerExecutor;
 
-    public Offer(tradingSystem market, OfferType type, CompanyId companyId, int sharesNumber,
+    public Offer(TradingSystem market, OfferType type, CompanyId companyId, int sharesNumber,
                  int price, Investor investor) {
         this.number = offersCnt++;
         this.type = type;

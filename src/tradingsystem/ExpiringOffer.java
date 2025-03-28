@@ -1,9 +1,9 @@
 package tradingsystem;
 
-public class ExpirationOffer extends DivisibleOffer {
+public class ExpiringOffer extends DivisibleOffer {
     private final int expirationRound;
 
-    public ExpirationOffer(tradingSystem market, OfferType type, CompanyId companyId, int StocksNumber, int price, Investor investor, int expirationRound) {
+    public ExpiringOffer(TradingSystem market, OfferType type, CompanyId companyId, int StocksNumber, int price, Investor investor, int expirationRound) {
         super(market, type, companyId, StocksNumber, price, investor);
         this.expirationRound = expirationRound;
     }

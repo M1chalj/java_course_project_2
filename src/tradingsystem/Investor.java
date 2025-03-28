@@ -9,16 +9,16 @@ public abstract class Investor {
     private static int InvestorCnt = 0;
 
     private final int number;
-    private final tradingSystem market;
+    private final TradingSystem market;
     private final Wallet wallet;
 
-    public Investor(tradingSystem market, Wallet wallet) {
+    public Investor(TradingSystem market, Wallet wallet) {
         number = InvestorCnt++;
         this.market = market;
         this.wallet = wallet;
     }
 
-    protected tradingSystem market() {
+    protected TradingSystem market() {
         return market;
     }
 
