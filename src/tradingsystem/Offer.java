@@ -8,18 +8,18 @@ public abstract class Offer implements Comparable<Offer> {
 
     private final int number;
     private final OfferType type;
-    private final CompanyId companyID;
+    private final CompanyId companyId;
     private final int price;
     private final Investor investor;
     private final tradingSystem market;
     private int sharesNumber;
     private final OfferExecutor offerExecutor;
 
-    public Offer(tradingSystem market, OfferType type, CompanyId companyID, int sharesNumber,
+    public Offer(tradingSystem market, OfferType type, CompanyId companyId, int sharesNumber,
                  int price, Investor investor) {
         this.number = offersCnt++;
         this.type = type;
-        this.companyID = companyID;
+        this.companyId = companyId;
         this.price = price;
         this.investor = investor;
         this.market = market;
@@ -36,7 +36,7 @@ public abstract class Offer implements Comparable<Offer> {
     }
 
     public boolean matchWith(Offer z) {
-        if (z.type == type || !(z.companyID.equals(companyID))) {
+        if (z.type == type || !(z.companyId.equals(companyId))) {
             return false;
         } else if (type == OfferType.SELL) {
             return price <= z.price;
@@ -46,7 +46,7 @@ public abstract class Offer implements Comparable<Offer> {
     }
 
     public CompanyId companyID() {
-        return companyID;
+        return companyId;
     }
 
     public OfferType type() {
@@ -58,12 +58,12 @@ public abstract class Offer implements Comparable<Offer> {
         if (type == OfferType.BUY) {
             return wallet.hasMoney(sharesNumber * price);
         } else {
-            return wallet.hadShares(companyID, sharesNumber);
+            return wallet.hadShares(companyId, sharesNumber);
         }
     }
 
-    public boolean priceInInterval(int minimum, int maksimum) {
-        return minimum <= price && price <= maksimum;
+    public boolean priceInInterval(int min, int max) {
+        return min <= price && price <= max;
     }
 
     public boolean tryExecute(PriorityQueue<Offer> sellOffers,
@@ -87,9 +87,9 @@ public abstract class Offer implements Comparable<Offer> {
             price = offer.price;
         }
 
-        int lastPrice = market.company(companyID).lastPrice();
+        int lastPrice = market.company(companyId).lastPrice();
 
-        market.company(companyID).lastPrice(price);
+        market.company(companyId).lastPrice(price);
         execute(numberOfShares, price);
         offer.execute(numberOfShares, price);
 
@@ -98,7 +98,7 @@ public abstract class Offer implements Comparable<Offer> {
             undoExecution(numberOfShares, price);
             offer.undoExecution(numberOfShares, price);
 
-            market.company(companyID).lastPrice(lastPrice);
+            market.company(companyId).lastPrice(lastPrice);
             offerExecutor.addToOtherQueue(offer, sellOffers, buyOffers);
             return false;
         }
@@ -106,12 +106,12 @@ public abstract class Offer implements Comparable<Offer> {
     }
 
     private void undoExecution(int numberOfShares, int price) {
-        offerExecutor.undoExecutionInvestor(investor, companyID, numberOfShares, price);
+        offerExecutor.undoExecutionInvestor(investor, companyId, numberOfShares, price);
         sharesNumber += numberOfShares;
     }
 
     private void execute(int numberOfShares, int price) {
-        offerExecutor.executeInvestor(investor, companyID, numberOfShares, price);
+        offerExecutor.executeInvestor(investor, companyId, numberOfShares, price);
         sharesNumber -= numberOfShares;
     }
 
@@ -141,6 +141,6 @@ public abstract class Offer implements Comparable<Offer> {
     @Override
     public String toString() {
         return "Offer nr " + number + " submitted by " + investor +
-                " type: " + type + " shares: " + companyID + " " + sharesNumber + " price limit: " + price;
+                " type: " + type + " shares: " + companyId + " " + sharesNumber + " price limit: " + price;
     }
 }

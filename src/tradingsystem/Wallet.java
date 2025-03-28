@@ -5,74 +5,74 @@ import java.util.Map;
 import java.util.Set;
 
 public class Wallet {
-    private final Map<CompanyId, Integer> akcje;
-    private int gotówka;
+    private final Map<CompanyId, Integer> shares;
+    private int money;
 
-    public Wallet(int gotówka) {
-        this.gotówka = gotówka;
-        akcje = new HashMap<>();
+    public Wallet(int money) {
+        this.money = money;
+        shares = new HashMap<>();
     }
 
-    public Wallet(Wallet wallet) { //konstruktor kopiujący
-        this.akcje = new HashMap<>(wallet.akcje);
-        this.gotówka = wallet.gotówka;
+    public Wallet(Wallet wallet) {
+        this.shares = new HashMap<>(wallet.shares);
+        this.money = wallet.money;
     }
 
-    public void addMoney(int gotówka) {
-        this.gotówka += gotówka;
+    public void addMoney(int money) {
+        this.money += money;
     }
 
-    public void takeMoney(int gotówka) {
-        if (this.gotówka < gotówka) {
-            throw new IllegalArgumentException("Usunięcie gotówki, której nie ma w portfelu");
+    public void takeMoney(int money) {
+        if (this.money < money) {
+            throw new IllegalArgumentException("Deleting money that is not in the wallet");
         }
-        this.gotówka -= gotówka;
+        this.money -= money;
     }
 
-    public void addShares(CompanyId id, int liczba) {
-        if (akcje.containsKey(id)) {
-            liczba += akcje.get(id);
+    public void addShares(CompanyId id, int amount) {
+        if (shares.containsKey(id)) {
+            amount += shares.get(id);
         }
-        akcje.put(id, liczba);
+        shares.put(id, amount);
     }
 
-    public void takeShares(CompanyId id, int liczba) {
-        if (!akcje.containsKey(id) || akcje.get(id) < liczba) {
-            throw new IllegalArgumentException("Usunięcie akcji, których nie ma w portfelu");
+    public void takeShares(CompanyId id, int amount) {
+        if (!shares.containsKey(id) || shares.get(id) < amount) {
+            throw new IllegalArgumentException("Deleting shares that are not in the wallet");
         }
-        liczba = akcje.get(id) - liczba;
-        if (liczba == 0) {
-            akcje.remove(id);
+        amount = shares.get(id) - amount;
+        if (amount == 0) {
+            shares.remove(id);
         } else {
-            akcje.put(id, liczba);
+            shares.put(id, amount);
         }
     }
 
     public Set<CompanyId> CompaniesIDs() {
-        return akcje.keySet();
+        return shares.keySet();
     }
 
     public int shares(CompanyId companyId) {
-        return akcje.getOrDefault(companyId, 0);
+        return shares.getOrDefault(companyId, 0);
     }
 
     public int money() {
-        return gotówka;
+        return money;
     }
 
-    public boolean hasMoney(int ile) {
-        return gotówka >= ile;
+    public boolean hasMoney(int amount) {
+        return money >= amount;
     }
 
-    public boolean hadShares(CompanyId id, int ile) {
-        return akcje.containsKey(id) && akcje.get(id) >= ile;
+    public boolean hadShares(CompanyId id, int amount) {
+        return shares.containsKey(id) && shares.get(id) >= amount;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(gotówka);
-        for (Map.Entry<CompanyId, Integer> elem : akcje.entrySet()) {
+        stringBuilder.append(money);
+        for (Map.Entry<CompanyId, Integer> elem : shares.entrySet()) {
             stringBuilder.append(" ");
             stringBuilder.append(elem.getKey());
             stringBuilder.append(":");

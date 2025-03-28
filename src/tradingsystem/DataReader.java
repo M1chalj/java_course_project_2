@@ -80,13 +80,13 @@ public class DataReader {
             while (scanner.hasNext()) {
                 String s = scanner.next();
 
-                int IDlength = s.indexOf(':');
-                if (IDlength == -1) {
+                int IdLength = s.indexOf(':');
+                if (IdLength == -1) {
                     throw new DataFormatException("Invalid Company format");
                 }
 
-                CompanyId companyId = new CompanyId(s.substring(0, IDlength));
-                int lastPrice = Integer.parseInt(s.substring(IDlength + 1));
+                CompanyId companyId = new CompanyId(s.substring(0, IdLength));
+                int lastPrice = Integer.parseInt(s.substring(IdLength + 1));
                 if (companyIDs.contains(companyId) || lastPrice < 1) {
                     throw new DataFormatException("Invalid Company format");
                 }
@@ -98,21 +98,21 @@ public class DataReader {
         }
     }
 
-    private void readWallets(String linia) throws DataFormatException {
-        try (Scanner scanner = new Scanner(linia)) {
+    private void readWallets(String line) throws DataFormatException {
+        try (Scanner scanner = new Scanner(line)) {
 
             wallet.addMoney(Integer.parseInt(scanner.next()));
 
             while (scanner.hasNext()) {
                 String s = scanner.next();
 
-                int IDlength = s.indexOf(':');
-                if (IDlength == -1) {
+                int IdLength = s.indexOf(':');
+                if (IdLength == -1) {
                     throw new DataFormatException("Invalid wallet format");
                 }
 
-                CompanyId companyId = new CompanyId(s.substring(0, IDlength));
-                int numberOfShares = Integer.parseInt(s.substring(IDlength + 1));
+                CompanyId companyId = new CompanyId(s.substring(0, IdLength));
+                int numberOfShares = Integer.parseInt(s.substring(IdLength + 1));
                 if (!companyIDs.contains(companyId) || numberOfShares < 1) {
                     throw new DataFormatException("Invalid wallet format");
                 }
