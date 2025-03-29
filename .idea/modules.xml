@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gielda.iml" filepath="$PROJECT_DIR$/Gielda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Stock_exchange_system.iml" filepath="$PROJECT_DIR$/Stock_exchange_system.iml" />
     </modules>
   </component>
 </project>
